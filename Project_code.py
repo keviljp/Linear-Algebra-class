@@ -56,7 +56,7 @@ def read_fixed_voltages_txt(file_name):
 
 
 fileResistances = input("please enter the name of the resistances you would like to analyze")
-fileVoltages = ("please enter the name of the fixed voltages you would like to analyze")
+fileVoltages = input("please enter the name of the fixed voltages you would like to analyze")
 fileType = input("is this a space separated txt file or a json file? (enter txt or json): ")
 
 def setUpNeeded(fileVoltages, fileResistances,fileType):
