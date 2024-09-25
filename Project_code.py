@@ -33,12 +33,45 @@ def read_fixed_voltages_json(file_name):
             fixed_voltages[node] = voltage
     return fixed_voltages
 
-def setUpNeeded(fileVoltages, fileResistances):
-    fixed_voltages = read_fixed_voltages_json(fileVoltages)
-    resistances = read_resistances_json(fileResistances)
+def read_resistances_txt(file_name):
+    resistances = {}
+    with open(file_name, 'r') as f:
+        for line in f:
+            line = line.split(" ")
+            node1 = line[0]
+            node2 = line[1]
+            resistance = line[2]
+            resistances[(node1, node2)] = resistance
+    return resistances
+
+def read_fixed_voltages_txt(file_name):
+    fixed_voltages = {}
+    with open(file_name, 'r') as f:
+        for line in f:
+            line = line.split(" ")
+            node = line[0]
+            voltage = line[1]
+            fixed_voltages[node] = voltage
+    return fixed_voltages
+
+
+fileResistances = input("please enter the name of the resistances you would like to analyze")
+fileVoltages = ("please enter the name of the fixed voltages you would like to analyze")
+fileType = input("is this a space separated txt file or a json file? (enter txt or json): ")
+
+def setUpNeeded(fileVoltages, fileResistances,fileType):
+    if fileType == 'txt':
+        fixed_voltages = read_fixed_voltages_txt(fileVoltages)
+        resistances = read_resistances_txt(fileResistances)
+    elif fileType == 'json':
+        fixed_voltages = read_fixed_voltages_json(fileVoltages)
+        resistances = read_resistances_json(fileResistances)
+    else:
+        print("invalid filetype")
+        
     return (fixed_voltages, resistances)
 
-Needed = setUpNeeded('node_voltages.json','node_resistances.json')
+Needed = setUpNeeded(fileResistances, fileVoltages, fileType)
 fixed_voltages = Needed[0]
 resistances = Needed[1]
 
